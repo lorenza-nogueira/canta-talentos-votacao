@@ -52,7 +52,6 @@ const AREA_CFG: Record<string, { bg: string; text: string; border: string }> = {
   Música:      { bg: 'var(--primary-soft)', text: PINK,  border: PINK  },
   Esportes:    { bg: 'var(--accent-soft)', text: BLUE,  border: BLUE  },
   Tecnologia:  { bg: 'var(--primary-soft)', text: PINK,  border: PINK  },
-  Artesanato:  { bg: 'var(--accent-soft)', text: BLUE,  border: BLUE  },
   Idiomas:     { bg: 'var(--primary-soft)', text: PINK,  border: PINK  },
   'Bem-estar': { bg: 'var(--accent-soft)', text: BLUE,  border: BLUE  },
   Comunicação: { bg: 'var(--primary-soft)', text: PINK,  border: PINK  },
