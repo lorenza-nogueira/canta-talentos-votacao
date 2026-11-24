@@ -47,3 +47,5 @@ use the editor.
 - Retire removed registrations from the active snapshot without reusing IDs or deleting historical votes; the active snapshot defines voting eligibility and tally rows.
 - Register batch-imported PDFs in a data manifest with prebuilt page images so MaterialAccess can read them without fetching private Drive links.
 - Keep category scrolling native for touch and trackpads, with a synchronized design-system slider as the always-visible scrollbar because operating systems can hide native scrollbar indicators.
+- Bound the media inside the project details dialog so the participant, category, description and material links stay visible without scrolling; unbounded natural-ratio media fills the panel and hides the project's information.
+- Draw the project details dialog's vertical scrollbar in the DOM (right-edge track with a thumb synced to the scroll position) and keep the native bar hidden inside the dialog, because browsers and operating systems can hide native indicators and two bars must never show at once.
