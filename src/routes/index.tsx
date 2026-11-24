@@ -226,12 +226,12 @@ function DetailModal({ talent, voted, onVote, onClose, canVote, busy = false }: 
           <p className="font-black text-sm">{talent.projectName}</p>
           <Button aria-label="Fechar detalhes" variant="ghost" size="icon" onClick={onClose}>✕</Button>
         </div>
-        <div className="overflow-y-auto">
-          <TalentPreview talent={talent} />
+        <div className="min-h-0 flex-1 overflow-y-auto">
+          <div className="modal-media"><TalentPreview talent={talent} /></div>
           <MediaLinks talent={talent} />
 
         {/* Body */}
-        <div className="overflow-y-auto flex-1 p-5 space-y-5">
+        <div className="p-4 space-y-4">
           {/* Author */}
           <div className="flex items-center gap-3">
             <div className="flex-1">
@@ -248,7 +248,7 @@ function DetailModal({ talent, voted, onVote, onClose, canVote, busy = false }: 
 
           {/* Title */}
           <div>
-            <h2 className="font-black text-xl leading-tight mb-2" style={{ color: INK }}>{talent.projectName}</h2>
+            <h2 className="font-black text-lg leading-tight mb-1.5" style={{ color: INK }}>{talent.projectName}</h2>
             <div className="flex flex-wrap gap-1.5">{talent.tags.map(t => <TagChip key={t} tag={t} />)}</div>
           </div>
 
@@ -290,7 +290,7 @@ function DetailModal({ talent, voted, onVote, onClose, canVote, busy = false }: 
           {/* CTA */}
                   </div>
         </div>
-        <div className="border-t border-border bg-background p-4">
+        <div className="border-t border-border bg-background p-3">
           <VoteButton votes={talent.votes} voted={voted} onVote={onVote} size="lg" canVote={canVote} busy={busy} />
         </div>
       </div>
