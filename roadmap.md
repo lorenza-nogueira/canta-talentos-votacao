@@ -32,3 +32,4 @@
 - [x] Add a "Geral" tab with project thumbnails (name, category, main image, vote button), three per row
 - [x] Make clicking a thumbnail in the Geral tab open the whole project; verify the modal opens with full content
 - [x] Place the participant name below the project name in the Geral thumbnails (feed layout unchanged, per user's answer)
+- [x] Align every "Votar" button in the Geral grid at the same height
