@@ -192,11 +192,30 @@
 .adaptive-media-content { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; }
 .canta-fab { box-shadow: var(--shadow-floating); }
 @media (max-width: 767px) {
-  .canta-app > main { padding-right: 76px; }
+  .canta-app > main:not(.geral-view) { padding-right: 76px; }
   .talent-actions { align-items: flex-start; }
+  /* Three thumbnails per row need the full phone width. */
+  .geral-grid { margin-inline: -16px; padding-inline: 8px; gap: 8px; }
+  /* On phones the floating button would sit on top of a thumbnail's vote button. */
+  .canta-app.geral-mode .canta-fabs { display: none; }
 }
 .canta-app, .canta-app * { letter-spacing: 0; }
-html { scroll-padding-top: 150px; }
+html { scroll-padding-top: 180px; }
+/* Keep the feed's vertical scrollbar distinct from the category scroller. */
+html {
+  scrollbar-gutter: stable;
+}
+html::-webkit-scrollbar, body::-webkit-scrollbar { width: 12px; }
+html::-webkit-scrollbar-track, body::-webkit-scrollbar-track { background: var(--muted); }
+html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+  background: var(--body-copy);
+  border: 2px solid var(--muted);
+  border-radius: 6px;
+}
+html::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover { background: var(--foreground); }
+@supports not selector(::-webkit-scrollbar) {
+  html { scrollbar-width: auto; scrollbar-color: var(--body-copy) var(--muted); }
+}
 .category-scroll {
   overflow-x: scroll;
   overscroll-behavior-x: contain;
