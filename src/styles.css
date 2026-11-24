@@ -193,6 +193,29 @@
 /* Project details: keep the media bounded so the rest of the project's information stays visible */
 .modal-media { height: 26vh; min-height: 130px; max-height: 220px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--muted); }
 .modal-media .adaptive-media { width: 100%; height: 100%; aspect-ratio: auto; }
+/* Project details: the panel draws its own vertical bar on the right edge,
+   because operating systems can hide native scrollbar indicators. */
+.modal-scroll { scrollbar-width: none; }
+.modal-scroll::-webkit-scrollbar { display: none; width: 0; }
+.modal-vscroll {
+  position: relative;
+  flex: 0 0 12px;
+  width: 12px;
+  background: var(--muted);
+  border-left: 1px solid var(--border);
+  touch-action: none;
+}
+.modal-vscroll-thumb {
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  top: 0;
+  border-radius: 6px;
+  background: var(--body-copy);
+  cursor: grab;
+}
+.modal-vscroll-thumb:hover, .modal-vscroll-thumb:focus-visible { background: var(--foreground); outline: none; }
+.modal-vscroll-thumb:active { cursor: grabbing; }
 .canta-fab { box-shadow: var(--shadow-floating); }
 @media (max-width: 767px) {
   .canta-app > main:not(.geral-view) { padding-right: 76px; }
