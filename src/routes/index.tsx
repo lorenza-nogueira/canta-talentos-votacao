@@ -26,6 +26,7 @@ const MID   = 'var(--muted-foreground)'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Tab = 'feed' | 'explore' | 'ranking' | 'myvotes' | 'profile'
+type View = 'feed' | 'geral'
 type RankingTab = 'top' | 'week' | 'new'
 
 interface TalentLink { type: string; url: string; label?: string }
@@ -146,11 +147,12 @@ function ExpandableText({ text, limit = 28, preserveLines = false }: { text: str
 function VoteButton({ votes, voted, onVote, size = 'md', canVote, busy = false }: {
   votes: number; voted: boolean; onVote: () => void; size?: 'sm'|'md'|'lg'; canVote: boolean; busy?: boolean
 }) {
+  const compact = size === 'sm'
   return <Button onClick={onVote} disabled={!canVote || busy}
-    className={`vote-button font-black ${size === 'lg' ? 'h-12 w-full' : 'h-11 px-5'} ${voted ? 'bg-accent text-accent-foreground disabled:opacity-100' : 'bg-primary text-primary-foreground'}`}>
+    className={`vote-button font-black ${size === 'lg' ? 'h-12 w-full' : compact ? 'h-8 w-full gap-1 px-2 text-[11px] [&_svg]:size-3.5' : 'h-11 px-5'} ${voted ? 'bg-accent text-accent-foreground disabled:opacity-100' : 'bg-primary text-primary-foreground'}`}>
     {busy ? <LoaderCircle className="animate-spin" /> : voted ? <HeartOff /> : <Heart />}
-    {busy ? voted ? 'Retirando…' : 'Registrando…' : !canVote ? 'Encerrada' : voted ? 'Retirar voto' : 'Votar'}
-    <span className="ml-1 text-xs">{votes}</span>
+    {busy ? voted ? 'Retirando…' : 'Registrando…' : !canVote ? 'Encerrada' : voted ? (compact ? 'Retirar' : 'Retirar voto') : 'Votar'}
+    <span className={compact ? 'ml-0.5 text-[10px]' : 'ml-1 text-xs'}>{votes}</span>
   </Button>
 }
 
@@ -316,6 +318,26 @@ function TalentCard({ talent, voted, onVote, onDetail, canVote, busy = false }: 
       <VoteButton votes={talent.votes} voted={voted} onVote={onVote} canVote={canVote} busy={busy} />
       <Button variant="link" onClick={onDetail} className="px-1 text-xs font-black text-accent">Ver detalhes <ArrowRight /></Button>
     </div>
+  </article>
+}
+
+// ─── Geral (thumbnail grid) ───────────────────────────────────────────────────
+function GeralCard({ talent, voted, onVote, onDetail, canVote, busy = false }: {
+  talent: Talent; voted: boolean; onVote: () => void; onDetail: () => void; canVote: boolean; busy?: boolean
+}) {
+  const c = AREA_CFG[talent.area] || DEFAULT_AREA
+  return <article className="talent-card overflow-hidden bg-background">
+    <Button variant="ghost" onClick={onDetail} aria-label={`Abrir o projeto ${talent.projectName}`} className="block h-auto w-full rounded-none p-0 text-left hover:bg-muted">
+      <span className="adaptive-media relative block bg-muted" style={{ aspectRatio: '1 / 1' }}>
+        <img src={talent.cover} alt={talent.projectName} loading="lazy" className="adaptive-media-content" />
+      </span>
+      <span className="block space-y-1 whitespace-normal px-2 py-2">
+        <span className="break-words text-[11px] font-black leading-tight line-clamp-2">{talent.projectName}</span>
+        <span className="line-clamp-2 text-[10px] text-body-copy">{talent.name}</span>
+        <span className="block max-w-full rounded-sm px-1 py-0.5 text-center text-[8px] font-black uppercase leading-tight whitespace-normal line-clamp-2 sm:inline-block sm:line-clamp-1 sm:truncate sm:whitespace-nowrap sm:px-1.5 sm:py-0.5 sm:text-[9px]" style={{ background: c.bg, color: c.text, border: `1px solid ${c.border}` }}>{talent.area}</span>
+      </span>
+    </Button>
+    <div className="px-2 pb-2"><VoteButton votes={talent.votes} voted={voted} onVote={onVote} size="sm" canVote={canVote} busy={busy} /></div>
   </article>
 }
 
@@ -527,6 +549,7 @@ function FeedSkeleton() {
 export function CantaFeed() {
   const { data: state } = useSuspenseQuery(votingQueryOptions());
   const [search, setSearch] = useState('');
+  const [view, setView] = useState<View>('feed');
   const [activeTag, setActiveTag] = useState('Todos');
   const [detail, setDetail] = useState<Talent | null>(null);
   const [busyId, setBusyId] = useState<number | null>(null);
@@ -597,33 +620,43 @@ export function CantaFeed() {
       openIdentification();
     } catch { setNoticeError(true); setNotice('Não foi possível trocar a identificação. Tente novamente.'); }
   }
-  return <div className="canta-app min-h-screen bg-background text-foreground">
+  return <div className={`canta-app min-h-screen bg-background text-foreground ${view === 'geral' ? 'geral-mode' : ''}`}>
     <header className="bg-foreground"><div className="mx-auto flex max-w-3xl items-center justify-between gap-3 px-4 py-3">
       <Link to="/" aria-label="CANTA Talentos — início"><img src={logoImg} alt="CANTA Talentos" className="canta-logo" /></Link>
       {!state.voter ? <Button onClick={openIdentification} className="h-11 font-black"><Heart /> Participar</Button> : <div className="max-w-[45%] text-right text-primary-foreground"><p className="break-words text-sm font-bold">{state.voter.name}</p><Button variant="link" onClick={changeVoter} className="h-8 px-0 text-xs text-primary-foreground">Trocar identificação</Button></div>}
     </div></header>
     <div className="sticky top-0 z-30 border-b-2 border-foreground bg-background">
-      <div className="mx-auto max-w-2xl px-4 pt-3">
+      <div className="mx-auto max-w-2xl px-4 pt-2">
+        <div className="mb-2 flex gap-2" role="group" aria-label="Modo de exibição">
+          <Button aria-pressed={view === 'feed'} onClick={() => { setView('feed'); setVisibleCount(3); }}
+            className="h-7 shrink-0 px-3 text-xs font-black uppercase" style={view === 'feed' ? { background: INK, color: WHITE } : { background: GRAY, color: INK }}>Feed</Button>
+          <Button aria-pressed={view === 'geral'} onClick={() => { setView('geral'); setVisibleCount(3); }}
+            className="h-7 shrink-0 px-3 text-xs font-black uppercase" style={view === 'geral' ? { background: INK, color: WHITE } : { background: GRAY, color: INK }}>Geral</Button>
+          {view === 'geral' && <Button aria-pressed={onlyVoted} onClick={() => { setOnlyVoted(value => !value); setVisibleCount(3); }}
+            className="ml-auto h-7 shrink-0 px-3 text-xs font-black uppercase md:hidden" style={onlyVoted ? { background: BLUE, color: WHITE } : { background: GRAY, color: INK }}>Meus votos</Button>}
+        </div>
         <div className="relative"><span className="pointer-events-none absolute left-3 top-3 text-body-copy"><SearchIcon /></span><input aria-label="Buscar talentos" placeholder="Buscar por nome, projeto ou área…" maxLength={150} value={search} onChange={e => { setSearch(e.target.value); setVisibleCount(3); }} className="h-11 w-full rounded border border-border bg-muted pl-9 pr-3 text-sm outline-none focus:ring-2 focus:ring-accent" /></div>
         <CategoryScroller>
           {ALL_TAGS.map(tag => <Button key={tag} variant={activeTag === tag ? 'default' : 'outline'} aria-pressed={activeTag === tag} onClick={() => { setActiveTag(tag); setVisibleCount(3); }} className="h-8 shrink-0 px-3 text-xs font-bold">{tag}</Button>)}
         </CategoryScroller>
       </div>
     </div>
-    <main className="mx-auto max-w-2xl px-4 pb-28 pt-5">
+    <main className={`mx-auto max-w-2xl px-4 pb-28 pt-5 ${view === 'geral' ? 'geral-view' : ''}`}>
       <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
         <p className="text-sm font-bold">{state.open ? 'Votação aberta até 09/12' : 'Votação encerrada'}</p>
         {state.voter && <p className="text-xs text-body-copy">{voteCount} talento{voteCount !== 1 ? 's' : ''} apoiado{voteCount !== 1 ? 's' : ''}</p>}
       </div>
-      {notice && <div role={noticeError ? 'alert' : 'status'} className={`sticky top-32 z-20 mb-5 rounded border p-3 text-sm font-bold ${noticeError ? 'border-destructive bg-background text-destructive' : 'border-accent bg-accent-soft text-foreground'}`}>{notice}</div>}
+      {notice && <div role={noticeError ? 'alert' : 'status'} className={`sticky top-[178px] z-20 mb-5 rounded border p-3 text-sm font-bold ${noticeError ? 'border-destructive bg-background text-destructive' : 'border-accent bg-accent-soft text-foreground'}`}>{notice}</div>}
       {onlyVoted && <div className="mb-4 flex items-center justify-between"><p className="font-black">Meus votos</p><Button variant="link" onClick={() => setOnlyVoted(false)} className="text-accent">Ver todos</Button></div>}
-      {filtered.length === 0 ? <div className="py-16 text-center"><p className="text-lg font-black">{onlyVoted ? 'Você ainda não votou' : 'Nenhum talento encontrado'}</p><Button variant="link" onClick={() => { setSearch(''); setActiveTag('Todos'); setOnlyVoted(false); }} className="mt-2 text-accent">Ver todos os talentos</Button></div> : <div className="flex flex-col gap-7">
+      {filtered.length === 0 ? <div className="py-16 text-center"><p className="text-lg font-black">{onlyVoted ? 'Você ainda não votou' : 'Nenhum talento encontrado'}</p><Button variant="link" onClick={() => { setSearch(''); setActiveTag('Todos'); setOnlyVoted(false); }} className="mt-2 text-accent">Ver todos os talentos</Button></div> : view === 'geral' ? <div className="geral-grid grid grid-cols-3 gap-3">
+        {filtered.map(talent => <GeralCard key={talent.id} talent={talent} voted={state.votedIds.includes(talent.id)} onVote={() => handleVote(talent.id)} onDetail={() => setDetail(talent)} canVote={state.open && busyId === null} busy={busyId === talent.id} />)}
+      </div> : <div className="flex flex-col gap-7">
         {filtered.slice(0, visibleCount).map(talent => <TalentCard key={talent.id} talent={talent} voted={state.votedIds.includes(talent.id)} onVote={() => handleVote(talent.id)} onDetail={() => setDetail(talent)} canVote={state.open && busyId === null} busy={busyId === talent.id} />)}
       </div>}
-      <div ref={sentinel}>{visibleCount < filtered.length && <div className="mt-6"><Skeleton className="aspect-[4/3] w-full" /><Button variant="link" className="mt-3 text-accent" onClick={() => setVisibleCount(count => count + 3)}>Mais talentos</Button></div>}</div>
+      {view === 'feed' && <div ref={sentinel}>{visibleCount < filtered.length && <div className="mt-6"><Skeleton className="aspect-[4/3] w-full" /><Button variant="link" className="mt-3 text-accent" onClick={() => setVisibleCount(count => count + 3)}>Mais talentos</Button></div>}</div>}
       <p className="mt-10 text-center text-xs text-body-copy">CANTA Talentos 2026 · Todo talento merece ser celebrado.</p>
     </main>
-    <div className="fixed bottom-5 right-5 z-40 flex flex-col gap-3">
+    <div className="canta-fabs fixed bottom-5 right-5 z-40 flex flex-col gap-3">
       {showTop && <Button size="icon" variant="outline" className="canta-fab h-12 w-12 rounded-full" aria-label="Voltar ao topo" title="Voltar ao topo" onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' })}><ArrowUp /></Button>}
       <Button size="icon" className="canta-fab h-12 w-12 rounded-full bg-accent text-accent-foreground" aria-label={state.voter ? 'Meus votos' : 'Participar da votação'} title={state.voter ? 'Meus votos' : 'Participar da votação'} onClick={() => { if (!state.voter) openIdentification(); else { setOnlyVoted(value => !value); setVisibleCount(3); window.scrollTo({ top: 0, behavior: 'smooth' }); } }}><Heart /></Button>
     </div>
