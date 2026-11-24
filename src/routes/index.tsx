@@ -5,6 +5,7 @@ import { useSuspenseQuery, useQueryClient } from '@tanstack/react-query';
 import { ArrowUp, Heart, HeartOff, LoaderCircle, ExternalLink, ArrowRight, Play, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { CategoryScroller } from '@/components/category-scroller';
 import { VoterEntry } from '@/components/voter-entry';
 import { AdaptiveMedia } from '@/components/adaptive-media';
 import { MaterialAccess } from '@/components/material-access';
@@ -604,9 +605,9 @@ export function CantaFeed() {
     <div className="sticky top-0 z-30 border-b-2 border-foreground bg-background">
       <div className="mx-auto max-w-2xl px-4 pt-3">
         <div className="relative"><span className="pointer-events-none absolute left-3 top-3 text-body-copy"><SearchIcon /></span><input aria-label="Buscar talentos" placeholder="Buscar por nome, projeto ou área…" maxLength={150} value={search} onChange={e => { setSearch(e.target.value); setVisibleCount(3); }} className="h-11 w-full rounded border border-border bg-muted pl-9 pr-3 text-sm outline-none focus:ring-2 focus:ring-accent" /></div>
-        <nav aria-label="Filtrar talentos" className="category-scroll -mx-4 flex gap-2 px-4 py-3">
+        <CategoryScroller>
           {ALL_TAGS.map(tag => <Button key={tag} variant={activeTag === tag ? 'default' : 'outline'} aria-pressed={activeTag === tag} onClick={() => { setActiveTag(tag); setVisibleCount(3); }} className="h-8 shrink-0 px-3 text-xs font-bold">{tag}</Button>)}
-        </nav>
+        </CategoryScroller>
       </div>
     </div>
     <main className="mx-auto max-w-2xl px-4 pb-28 pt-5">

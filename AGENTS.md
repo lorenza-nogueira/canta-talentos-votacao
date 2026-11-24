@@ -46,3 +46,4 @@ use the editor.
 - Keep participant IDs stable in the public registration snapshot and extend the database voting constraint when adding an ID, because the server validator and spreadsheet export both read that snapshot.
 - Retire removed registrations from the active snapshot without reusing IDs or deleting historical votes; the active snapshot defines voting eligibility and tally rows.
 - Register batch-imported PDFs in a data manifest with prebuilt page images so MaterialAccess can read them without fetching private Drive links.
+- Keep category scrolling native for touch and trackpads, with a synchronized design-system slider as the always-visible scrollbar because operating systems can hide native scrollbar indicators.

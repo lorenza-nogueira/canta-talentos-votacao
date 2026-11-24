@@ -201,13 +201,11 @@ html { scroll-padding-top: 150px; }
   overflow-x: scroll;
   overscroll-behavior-x: contain;
   scroll-behavior: smooth;
-  scrollbar-width: thin;
-  scrollbar-color: var(--accent) var(--muted);
   -webkit-overflow-scrolling: touch;
 }
-.category-scroll::-webkit-scrollbar { display: block; height: 8px; }
-.category-scroll::-webkit-scrollbar-track { background: var(--muted); border-radius: 4px; }
-.category-scroll::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+.category-scrollbar > span:first-child { height: 6px; background: var(--muted); }
+.category-scrollbar > span:first-child > span { display: none; }
+.category-scrollbar [role="slider"] { width: 56px; height: 8px; border: 0; border-radius: 4px; background: var(--accent); box-shadow: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
