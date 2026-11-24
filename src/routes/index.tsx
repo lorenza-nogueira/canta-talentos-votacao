@@ -604,7 +604,7 @@ export function CantaFeed() {
     <div className="sticky top-0 z-30 border-b-2 border-foreground bg-background">
       <div className="mx-auto max-w-2xl px-4 pt-3">
         <div className="relative"><span className="pointer-events-none absolute left-3 top-3 text-body-copy"><SearchIcon /></span><input aria-label="Buscar talentos" placeholder="Buscar por nome, projeto ou área…" maxLength={150} value={search} onChange={e => { setSearch(e.target.value); setVisibleCount(3); }} className="h-11 w-full rounded border border-border bg-muted pl-9 pr-3 text-sm outline-none focus:ring-2 focus:ring-accent" /></div>
-        <nav aria-label="Filtrar talentos" className="-mx-4 flex gap-2 overflow-x-auto px-4 py-3 no-scrollbar">
+        <nav aria-label="Filtrar talentos" className="category-scroll -mx-4 flex gap-2 px-4 py-3">
           {ALL_TAGS.map(tag => <Button key={tag} variant={activeTag === tag ? 'default' : 'outline'} aria-pressed={activeTag === tag} onClick={() => { setActiveTag(tag); setVisibleCount(3); }} className="h-8 shrink-0 px-3 text-xs font-bold">{tag}</Button>)}
         </nav>
       </div>

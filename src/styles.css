@@ -197,6 +197,17 @@
 }
 .canta-app, .canta-app * { letter-spacing: 0; }
 html { scroll-padding-top: 150px; }
+.category-scroll {
+  overflow-x: scroll;
+  overscroll-behavior-x: contain;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--muted);
+  -webkit-overflow-scrolling: touch;
+}
+.category-scroll::-webkit-scrollbar { display: block; height: 8px; }
+.category-scroll::-webkit-scrollbar-track { background: var(--muted); border-radius: 4px; }
+.category-scroll::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }

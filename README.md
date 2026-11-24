@@ -4,7 +4,11 @@ Site de votação dos talentos da CANTA, desenvolvido com [Lovable](https://lova
 
 ## Entrega do código
 
-Este repositório privado é uma cópia do código entregue em 24/11/2026, não uma conexão de sincronização automática com o Lovable. Não inclui credenciais, registros de eleitores ou dependências instaladas. As mídias são referenciadas pelos arquivos `.asset.json` e continuam hospedadas no Lovable.
+Este repositório público é uma cópia do código entregue em 24/11/2026, não uma conexão de sincronização automática com o Lovable. Não inclui credenciais, registros de eleitores ou dependências instaladas. As mídias são referenciadas pelos arquivos `.asset.json` e continuam hospedadas no Lovable.
+
+Site público: https://cantatalentos-votacao.lovable.app
+
+O GitHub disponibiliza o código; o site e a votação são hospedados no Lovable. GitHub Pages oferece hospedagem estática e não executa as funções de servidor necessárias para identificação, persistência dos votos e apuração. Para outra hospedagem, é necessário um serviço compatível com TanStack Start e configuração própria dos serviços.
 
 A configuração dos serviços é fornecida por variáveis de ambiente; veja `.env.example`. As credenciais privadas ficam apenas no servidor. A votação usa identificação por nome e e-mail corporativo e não comprova a propriedade do e-mail.
 
