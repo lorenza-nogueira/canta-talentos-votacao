@@ -35,3 +35,4 @@
 - [x] Align every "Votar" button in the Geral grid at the same height
 - [x] Make the project details opened from a thumbnail show all information (bounded media, links, participant, category, full description, vote)
 - [x] Add a visible vertical scrollbar on the right edge of the project details dialog (drag, track click, keyboard, wheel sync; desktop and mobile verified)
+- [x] Make the Artesanato category chip follow the standard neutral style in the Geral tab (all 17 chips identical; details dialog verified)
