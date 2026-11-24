@@ -1,0 +1,34 @@
+# Roadmap
+- [x] Apply CANTA visual identity, logo, single feed, no tabs
+- [x] Organize feed around spreadsheet data (Google Sheets)
+- [x] Add name and corporate-email identification with voting instructions
+- [x] Persist votes without a limit on distinct talents; close voting after 09/12
+- [x] Create a Google Sheets workbook with vote records and computed totals
+- [x] Highlight voting and main media links; show images without cropping
+- [x] Replace “Saiba mais” with “Acesse aqui” and highlight file buttons
+- [x] Enlarge and left-align the logo; add sticky filters, continuous feed, skeletons, progressive details, spacing, and floating actions
+- [x] Verify identification, voting, spreadsheet updates, and desktop/mobile layout
+- [x] Fix voter identification persistence in the embedded preview
+- [x] Show instructions and name/email in a popup before voting; verify the full flow
+- [x] Allow withdrawing one's own vote and voting again, with totals synchronized to Sheets
+- [x] Adapt each feed image to its natural aspect ratio without cropping, and move “Acesse aqui” below media
+- [x] Make video playable in the feed and PDF/video covers open their materials directly; verify desktop and mobile
+- [x] Remove YouTube short-link redirects and ensure each video thumbnail opens its matching video
+- [x] Correct PDF icon and YouTube button destinations and verify actual clicks
+- [x] Resolve the blocked-link message by opening PDF pages and playable YouTube embeds in the app; verify sandbox, desktop, and mobile
+- [x] Fix Daudt’s blocked Instagram access with the official in-page profile embed; verify desktop and mobile
+- [x] Replace Palco with the attached PDF; verify all 56 page previews, cover/button reading, and a byte-identical original download
+- [x] Include Nayane’s registration from the provided sheet, retain her submitted materials, and verify feed/details access, vote persistence/withdrawal, and spreadsheet totals
+- [x] Include Daniel Brugin’s and Francielly’s submitted registrations and materials, preserving existing participant IDs and verifying material access and voting
+- [x] Remove Daniel’s Baixista registration without deleting historical vote records
+- [x] Add all submitted registrations from spreadsheet rows 11–21 and enable their voting and tally
+- [x] Apply uploaded favicon and tab title “Votação CANTA. Talentos”
+- [x] Export the finished source to a private GitHub repository (346 files verified byte-for-byte; snapshot, not automatic Git sync)
+- [x] Cross-check registration attachments with the user-provided Drive folder
+- [x] Add smoother horizontal category scrolling with a visible draggable scrollbar (desktop/mobile, drag, keyboard, and trackpad verified)
+- [ ] Configure sites.canta.com.br/canta-talentos/#votacao — blocked: user has no administration access; existing campaign hosting team must integrate the voting page
+- [x] Update the existing GitHub repository and make the site and code public, excluding voter data and credentials
+- [x] Widen the feed's vertical scrollbar to 12px with a darker thumb; verify scrolling and mobile layout without horizontal overflow
+- [x] Add a "Geral" tab with project thumbnails (name, category, main image, vote button), three per row
+- [x] Make clicking a thumbnail in the Geral tab open the whole project; verify the modal opens with full content
+- [x] Place the participant name below the project name in the Geral thumbnails (feed layout unchanged, per user's answer)
