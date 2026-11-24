@@ -190,6 +190,9 @@
 .canta-media { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: var(--muted); }
 .adaptive-media { width: 100%; overflow: hidden; }
 .adaptive-media-content { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; }
+/* Project details: keep the media bounded so the rest of the project's information stays visible */
+.modal-media { height: 26vh; min-height: 130px; max-height: 220px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--muted); }
+.modal-media .adaptive-media { width: 100%; height: 100%; aspect-ratio: auto; }
 .canta-fab { box-shadow: var(--shadow-floating); }
 @media (max-width: 767px) {
   .canta-app > main:not(.geral-view) { padding-right: 76px; }
