@@ -12,6 +12,14 @@ O GitHub disponibiliza o código; o site e a votação são hospedados no Lovabl
 
 A configuração dos serviços é fornecida por variáveis de ambiente; veja `.env.example`. As credenciais privadas ficam apenas no servidor. A votação usa identificação por nome e e-mail corporativo e não comprova a propriedade do e-mail.
 
+## O que o site faz hoje
+
+- **Feed único** com as 17 inscrições ativas, em ordem, com mídia na proporção original e sem recorte.
+- **Duas visualizações**: *Feed* (lista grande) e *Geral* (miniaturas, três por linha, com nome do projeto, nome do participante, categoria e botão de votar; clicar na miniatura abre o projeto inteiro).
+- **Filtro por categoria** com rolagem lateral fluida e uma barrinha arrastável sempre visível.
+- **Cardápio de detalhes** com mídia limitada em altura, botões "Acesse aqui", nome do participante, categoria, descrição completa e barra de rolagem vertical desenhada na lateral direita.
+- **Votação identificada** por nome e e-mail corporativo, com retirada de voto e votação novamente, totais espelhados na planilha de apuração.
+
 ## Build with Lovable
 
 Abra seu projeto no [editor Lovable](https://lovable.dev) para continuar criando.
