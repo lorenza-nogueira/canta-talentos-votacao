@@ -6,6 +6,7 @@ import { ArrowUp, Heart, HeartOff, LoaderCircle, ExternalLink, ArrowRight, Play,
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CategoryScroller } from '@/components/category-scroller';
+import { ModalScrollbar } from '@/components/modal-scrollbar';
 import { VoterEntry } from '@/components/voter-entry';
 import { AdaptiveMedia } from '@/components/adaptive-media';
 import { MaterialAccess } from '@/components/material-access';
@@ -199,6 +200,7 @@ function DetailModal({ talent, voted, onVote, onClose, canVote, busy = false }: 
   const [showVideo, setShowVideo] = useState(false)
 
   const panelRef = useRef<HTMLDivElement>(null)
+  const [scrollEl, setScrollEl] = useState<HTMLDivElement | null>(null)
   useEffect(() => {
     const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null
     const previousOverflow = document.body.style.overflow
@@ -226,7 +228,8 @@ function DetailModal({ talent, voted, onVote, onClose, canVote, busy = false }: 
           <p className="font-black text-sm">{talent.projectName}</p>
           <Button aria-label="Fechar detalhes" variant="ghost" size="icon" onClick={onClose}>✕</Button>
         </div>
-        <div className="min-h-0 flex-1 overflow-y-auto">
+        <div className="flex min-h-0 flex-1">
+          <div id="project-details-content" ref={setScrollEl} className="modal-scroll min-h-0 flex-1 overflow-y-auto">
           <div className="modal-media"><TalentPreview talent={talent} /></div>
           <MediaLinks talent={talent} />
 
@@ -289,6 +292,8 @@ function DetailModal({ talent, voted, onVote, onClose, canVote, busy = false }: 
 
           {/* CTA */}
                   </div>
+          </div>
+          <ModalScrollbar target={scrollEl} />
         </div>
         <div className="border-t border-border bg-background p-3">
           <VoteButton votes={talent.votes} voted={voted} onVote={onVote} size="lg" canVote={canVote} busy={busy} />
