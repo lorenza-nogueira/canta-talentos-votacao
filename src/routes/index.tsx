@@ -326,18 +326,18 @@ function GeralCard({ talent, voted, onVote, onDetail, canVote, busy = false }: {
   talent: Talent; voted: boolean; onVote: () => void; onDetail: () => void; canVote: boolean; busy?: boolean
 }) {
   const c = AREA_CFG[talent.area] || DEFAULT_AREA
-  return <article className="talent-card overflow-hidden bg-background">
-    <Button variant="ghost" onClick={onDetail} aria-label={`Abrir o projeto ${talent.projectName}`} className="block h-auto w-full rounded-none p-0 text-left hover:bg-muted">
+  return <article className="talent-card flex h-full flex-col overflow-hidden bg-background">
+    <Button variant="ghost" onClick={onDetail} aria-label={`Abrir o projeto ${talent.projectName}`} className="block h-auto w-full flex-1 rounded-none p-0 text-left hover:bg-muted">
       <span className="adaptive-media relative block bg-muted" style={{ aspectRatio: '1 / 1' }}>
         <img src={talent.cover} alt={talent.projectName} loading="lazy" className="adaptive-media-content" />
       </span>
       <span className="block space-y-1 whitespace-normal px-2 py-2">
-        <span className="break-words text-[11px] font-black leading-tight line-clamp-2">{talent.projectName}</span>
-        <span className="line-clamp-2 text-[10px] text-body-copy">{talent.name}</span>
-        <span className="block max-w-full rounded-sm px-1 py-0.5 text-center text-[8px] font-black uppercase leading-tight whitespace-normal line-clamp-2 sm:inline-block sm:line-clamp-1 sm:truncate sm:whitespace-nowrap sm:px-1.5 sm:py-0.5 sm:text-[9px]" style={{ background: c.bg, color: c.text, border: `1px solid ${c.border}` }}>{talent.area}</span>
+        <span className="h-[2.5em] break-words text-[11px] font-black leading-tight line-clamp-2">{talent.projectName}</span>
+        <span className="h-[3em] line-clamp-2 text-[10px] leading-normal text-body-copy">{talent.name}</span>
+        <span className="block h-[3em] max-w-full rounded-sm px-1 py-0.5 text-center text-[8px] font-black uppercase leading-tight whitespace-normal line-clamp-2 sm:inline-block sm:h-[1.7em] sm:line-clamp-1 sm:truncate sm:whitespace-nowrap sm:px-1.5 sm:py-0.5 sm:text-[9px]" style={{ background: c.bg, color: c.text, border: `1px solid ${c.border}` }}>{talent.area}</span>
       </span>
     </Button>
-    <div className="px-2 pb-2"><VoteButton votes={talent.votes} voted={voted} onVote={onVote} size="sm" canVote={canVote} busy={busy} /></div>
+    <div className="mt-auto px-2 pb-2"><VoteButton votes={talent.votes} voted={voted} onVote={onVote} size="sm" canVote={canVote} busy={busy} /></div>
   </article>
 }
 
